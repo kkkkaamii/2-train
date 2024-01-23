@@ -1,35 +1,27 @@
 import java.util.ArrayList;
 import java.util.List;
 
+
 class Train {
     private String name;
-    private List<Locomotive> locomotives;
-    private List<Carriage> carriages;
+    private List<RailVehicle> railVehicles;
 
 
     public Train(String name) {
         this.name = name;
-        this.locomotives = new ArrayList<>();
-        this.carriages = new ArrayList<>();
-    }
-
-    public void addLocomotive(Locomotive locomotive) {
-        locomotives.add(locomotive);
+        this.railVehicles = new ArrayList<>();
     }
 
 
-    public void addCarriage(Carriage carriage) {
-        carriages.add(carriage);
+    public void addRailVehicle(RailVehicle railVehicle) {
+        railVehicles.add(railVehicle);
     }
 
 
     public int calculateTotalCargoCapacity() {
         int totalCargoCapacity = 0;
-        for (Locomotive locomotive : locomotives) {
-            totalCargoCapacity += locomotive.getCargoCapacity();
-        }
-        for (Carriage carriage : carriages) {
-            totalCargoCapacity += carriage.getCargoCapacity();
+        for (RailVehicle railVehicle : railVehicles) {
+            totalCargoCapacity += railVehicle.getCargoCapacity();
         }
         return totalCargoCapacity;
     }
@@ -37,8 +29,10 @@ class Train {
 
     public int calculateTotalPassengerCapacity() {
         int totalPassengerCapacity = 0;
-        for (Carriage carriage : carriages) {
-            totalPassengerCapacity += carriage.getPassengerCapacity();
+        for (RailVehicle railVehicle : railVehicles) {
+            if (railVehicle instanceof Carriage) {
+                totalPassengerCapacity += ((Carriage) railVehicle).getPassengerCapacity();
+            }
         }
         return totalPassengerCapacity;
     }
